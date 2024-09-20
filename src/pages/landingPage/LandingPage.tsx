@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Navbar from "../../components/nav/Navbar";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LandingCards from "../../components/cards/LandingCards";
+import { useNavigate } from "react-router-dom";
 
-const questions = [
+const questions: string[] = [
   "What is Netflix?",
   "How much does Netflix cost?",
   "Where can I watch?",
@@ -13,29 +14,46 @@ const questions = [
   "Is Netflix good for kids",
 ];
 const LandingPage: React.FC<{}> = (): JSX.Element => {
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const handleBtnClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    navigate("/signup", { state: { email } });
+  };
   return (
     <div>
       <div className="landing-page min-h-[100vh] mb-[3rem] relative">
         <Navbar />
         <div className="min-h-[80vh] mt-[100px] text-center text-white">
-          <h1 className="text-[3.5rem]">Unlimited movies, TV</h1>
-          <h1 className="text-[3.5rem] mb-[1rem]">shows and more</h1>
-          <p className="text-[1.5rem] font-medium mb-[2rem]">
+          <h1 className="xs:text-[2rem] sm:text-[3.5rem]">
+            Unlimited movies, TV
+          </h1>
+          <h1 className="xs:text-[2rem] sm:text-[3.5rem] mb-[1rem]">
+            shows and more
+          </h1>
+          <p className="xs:text-[0.9rem] sm:text-[1.5rem] font-medium mb-[2rem]">
             Starts at ₹149. Cancel anytime.
           </p>
-          <p className="mb-[1rem]">
+          <p className="mb-[1rem] xs:text-sm sm:text-base">
             Ready to watch? Enter your email to create or restart your
             membership.
           </p>
           <div className="flex flex-col items-center">
             <input
               type="email"
-              name=""
-              id=""
+              name="email"
+              value={email}
+              autoFocus
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email Address"
-              className="bg-dark-grey text-slate-100/30 sm:w-[500px] w-[100%] px-[10px] py-[15px] border-[1px] border-slate-100/30 rounded-md"
+              className="bg-dark-grey text-slate-100/30 sm:w-[500px] w-[70%] px-[7px] py-[7px] sm:px-[10px] sm:py-[15px] border-[1px] border-slate-100/30 rounded-md"
             />
-            <button className="mt-[1rem] mb-[5rem] text-[1.5rem] bg-header-color px-[16px] py-[8px] rounded-md hover:bg-header-hover">
+            <button
+              onClick={handleBtnClick}
+              className="mt-[1rem] mb-[5rem] text-[1.5rem] bg-header-color px-[16px] py-[8px] rounded-md hover:bg-header-hover"
+            >
               Get Started
               <ChevronRightIcon fontSize="large" className="align-text-top" />
             </button>

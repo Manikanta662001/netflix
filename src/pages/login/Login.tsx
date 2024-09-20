@@ -22,7 +22,10 @@ const Login: React.FC<{}> = (): JSX.Element => {
   const handleSubmit = () => {};
   return (
     <div className="bg-dark-grey">
-      <div className="text-header-color text-5xl font-bold ml-[10%] hover:cursor-pointer" onClick={()=>navigate('/')}>
+      <div
+        className="text-header-color text-5xl font-bold ml-[10%] hover:cursor-pointer"
+        onClick={() => navigate("/")}
+      >
         NETFLIX
       </div>
       <div className="max-w-[320px] m-auto">
@@ -49,7 +52,7 @@ const Login: React.FC<{}> = (): JSX.Element => {
               </div>
               <div className="mb-[0.8rem] relative">
                 <Field
-                  type={hidePwd?"password":'text'}
+                  type={hidePwd ? "password" : "text"}
                   name="password"
                   placeholder="Password"
                   className="w-full bg-dark-grey text-slate-100/30 px-[10px] py-[15px] border-[1px] border-slate-100/30 rounded-md"
@@ -59,7 +62,10 @@ const Login: React.FC<{}> = (): JSX.Element => {
                   component={"div"}
                   className="text-center text-error-color"
                 />
-                <span className="absolute text-slate-100/30 right-[3px] top-[16px]" onClick={()=>setHidePwd(!hidePwd)}>
+                <span
+                  className="absolute text-slate-100/30 right-[3px] top-[16px]"
+                  onClick={() => setHidePwd(!hidePwd)}
+                >
                   {hidePwd ? (
                     <VisibilityOffIcon fontSize="medium" />
                   ) : (
