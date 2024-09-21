@@ -4,6 +4,8 @@ import Navbar from "../../components/nav/Navbar";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LandingCards from "../../components/cards/LandingCards";
 import { useNavigate } from "react-router-dom";
+import { ErrorMessage, Field, Formik, Form } from "formik";
+import { EmailInterface } from "./types";
 
 const questions: string[] = [
   "What is Netflix?",
@@ -14,13 +16,16 @@ const questions: string[] = [
   "Is Netflix good for kids",
 ];
 const LandingPage: React.FC<{}> = (): JSX.Element => {
-  const [email, setEmail] = useState("");
+  const initialValues: EmailInterface = { email: "" };
   const navigate = useNavigate();
-  const handleBtnClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    navigate("/signup", { state: { email } });
+  const handleValidate = (values: EmailInterface) => {
+    const errors = {} as EmailInterface;
+    const { email } = values;
+    if (!email) errors.email = "Required";
+    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email))
+      errors.email = "Invalid email address";
+    console.log(errors);
+    return errors;
   };
   return (
     <div>
@@ -40,24 +45,37 @@ const LandingPage: React.FC<{}> = (): JSX.Element => {
             Ready to watch? Enter your email to create or restart your
             membership.
           </p>
-          <div className="flex flex-col items-center">
-            <input
-              type="email"
-              name="email"
-              value={email}
-              autoFocus
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email Address"
-              className="bg-dark-grey text-slate-100/30 sm:w-[500px] w-[70%] px-[7px] py-[7px] sm:px-[10px] sm:py-[15px] border-[1px] border-slate-100/30 rounded-md"
-            />
-            <button
-              onClick={handleBtnClick}
-              className="mt-[1rem] mb-[5rem] text-[1.5rem] bg-header-color px-[16px] py-[8px] rounded-md hover:bg-header-hover"
-            >
-              Get Started
-              <ChevronRightIcon fontSize="large" className="align-text-top" />
-            </button>
-          </div>
+
+          <Formik
+            initialValues={initialValues}
+            validate={(values) => handleValidate(values)}
+            onSubmit={(values) => {
+              navigate("/signup", { state: { email: values.email } });
+            }}
+          >
+            <Form>
+              <div className="flex flex-col items-center">
+                <Field
+                  type="email"
+                  name="email"
+                  placeholder="Email or mobile number"
+                  className="bg-dark-grey text-slate-100/30 sm:w-[500px] w-[70%] px-[7px] py-[7px] sm:px-[10px] sm:py-[15px] border-[1px] border-slate-100/30 rounded-md"
+                />
+                <ErrorMessage
+                  name="email"
+                  component={"div"}
+                  className="text-center text-error-color"
+                />
+              </div>
+              <button
+                type="submit"
+                className="mt-[1rem] mb-[5rem] text-[1.5rem] bg-header-color px-[16px] py-[8px] rounded-md hover:bg-header-hover"
+              >
+                Get Started
+                <ChevronRightIcon fontSize="large" className="align-text-top" />
+              </button>
+            </Form>
+          </Formik>
         </div>
         <div className="absolute bottom-[-20px] left-[20%] w-[60%] py-[0.8rem] rounded-xl text-white bg-dark-blue hidden lg:flex lg:justify-between lg:items-center">
           <div className="basis-[50%] ml-[2.5rem]">

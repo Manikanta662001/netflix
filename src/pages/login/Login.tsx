@@ -10,7 +10,7 @@ const Login: React.FC<{}> = (): JSX.Element => {
   const navigate = useNavigate();
   const [hidePwd, setHidePwd] = useState<boolean>(true);
   const handlevalidate = (values: InitialVals) => {
-    const errors: InitialVals = { email: "", password: "" };
+    const errors: InitialVals = {} as InitialVals;
     const { email, password } = values;
     if (!email) errors.email = "Required";
     else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email))
@@ -19,7 +19,7 @@ const Login: React.FC<{}> = (): JSX.Element => {
     else if (password.length < 6) errors.password = "Mimimum Six Characters";
     return errors;
   };
-  const handleSubmit = () => {};
+
   return (
     <div className="bg-dark-grey">
       <div
@@ -34,7 +34,9 @@ const Login: React.FC<{}> = (): JSX.Element => {
           <Formik
             initialValues={initialValues}
             validate={(values) => handlevalidate(values)}
-            onSubmit={handleSubmit}
+            onSubmit={(values) => {
+              console.log("SUB::::");
+            }}
           >
             <Form>
               <div className="mb-[0.8rem]">
