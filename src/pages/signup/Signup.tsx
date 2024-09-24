@@ -8,6 +8,8 @@ import CommonNav from "../../components/nav/CommonNav";
 const Signup = () => {
   const [step, setStep] = useState(1);
   const [amount, setAmount] = useState<number>(0);
+  const [pwd, setPwd] = useState<string>("");
+  const [errMsg, setErrMsg] = useState<string>("");
   const handlePayment = (amount: number, currency: string) => {
     const options = {
       key: "rzp_test_MqjIHqND1Uol58", // Replace with your Razorpay key
@@ -47,9 +49,16 @@ const Signup = () => {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   };
-  console.log("AMO::", amount);
+  console.log("AMO::", amount, pwd, step);
   const handleNextClick = () => {
-    if (step === 3) {
+    if (step === 1) {
+      if (pwd && pwd.length >= 6) {
+        setStep((prevStep) => prevStep + 1);
+        setErrMsg("");
+      } else {
+        setErrMsg("Should be Required and Minimum 6 Characters");
+      }
+    } else if (step === 3) {
       handlePayment(amount, "INR");
     } else {
       setStep((prevStep) => prevStep + 1);
@@ -68,7 +77,13 @@ const Signup = () => {
         }`}
       >
         {step === 1 ? (
-          <Step1 stepValue={step} email={email} />
+          <Step1
+            stepValue={step}
+            email={email}
+            password={pwd}
+            setPassword={setPwd}
+            errMsg={errMsg}
+          />
         ) : (
           <>
             {step === 2 ? (

@@ -3,7 +3,13 @@ import { Step1Props } from "./types";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-const Step1: React.FC<Step1Props> = ({ stepValue, email }): JSX.Element => {
+const Step1: React.FC<Step1Props> = ({
+  stepValue,
+  email,
+  password,
+  setPassword,
+  errMsg,
+}): JSX.Element => {
   const [hidePwd, setHidePwd] = useState<boolean>(true);
   return (
     <>
@@ -22,6 +28,8 @@ const Step1: React.FC<Step1Props> = ({ stepValue, email }): JSX.Element => {
           type={hidePwd ? "password" : "text"}
           name=""
           id=""
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
           className="w-[100%] px-[10px] py-[15px] mb-[1rem] border-[1px] border-inherit rounded-md focus:outline-0"
         />
@@ -36,6 +44,7 @@ const Step1: React.FC<Step1Props> = ({ stepValue, email }): JSX.Element => {
           )}
         </span>
       </div>
+      {errMsg && <div className="text-center text-error-color">{errMsg}</div>}
       <p className="text-cyan-400 mb-[1rem] hover:cursor-pointer">
         Forgot your password?
       </p>

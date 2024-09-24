@@ -1,8 +1,8 @@
 import React from "react";
-import { Step1Props } from "./types";
+import { Step2Props } from "./types";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
-const Step2: React.FC<Step1Props> = ({ stepValue }): JSX.Element => {
+const Step2: React.FC<Step2Props> = ({ stepValue }): JSX.Element => {
   return (
     <div className="text-center">
       <CheckCircleOutlineIcon fontSize="large" className="text-header-color" />

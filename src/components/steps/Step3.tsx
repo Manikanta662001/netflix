@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PlansInterface, Step1Props } from "./types";
+import { PlansInterface, Step3Props } from "./types";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 const plans: PlansInterface[] = [
   {
@@ -39,7 +39,7 @@ const plans: PlansInterface[] = [
     download_devices: 4,
   },
 ];
-const Step3: React.FC<Step1Props> = ({ stepValue, setAmount }): JSX.Element => {
+const Step3: React.FC<Step3Props> = ({ stepValue, setAmount }): JSX.Element => {
   const [selectedPlan, setSelectedPlan] = useState<PlansInterface>(plans[1]);
   useEffect(() => {
     console.log(selectedPlan);
