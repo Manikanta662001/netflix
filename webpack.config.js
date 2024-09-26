@@ -9,6 +9,11 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
+    alias: {
+      "@components": path.resolve(__dirname, "src/components/"),
+      "@pages": path.resolve(__dirname, "src/pages/"),
+      "@assets": path.resolve(__dirname, "src/assets/"),
+    },
   },
   module: {
     rules: [
@@ -35,6 +40,7 @@ module.exports = {
   },
   devServer: {
     port: 3000,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
