@@ -88,7 +88,10 @@ const Login: React.FC<{}> = (): JSX.Element => {
               >
                 Use a sign-in code
               </button>
-              <div className="text-white text-center mb-[1rem]">
+              <div
+                className="text-white text-center mb-[1rem] hover:underline cursor-pointer hover:text-blue-600"
+                onClick={() => navigate("/forgotpwd")}
+              >
                 Forgot password?
               </div>
               <div className="text-md">

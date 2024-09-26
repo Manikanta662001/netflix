@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import Navbar from "../../components/nav/Navbar";
+import Navbar from "@components/nav/Navbar";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import LandingCards from "../../components/cards/LandingCards";
+import LandingCards from "@components/cards/LandingCards";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import { EmailInterface } from "./types";

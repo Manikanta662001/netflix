@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Step1 from "../../components/steps/Step1";
-import Step2 from "../../components/steps/Step2";
-import Step3 from "../../components/steps/Step3";
-import CommonNav from "../../components/nav/CommonNav";
+import Step1 from "@components/steps/Step1";
+import Step2 from "@components/steps/Step2";
+import Step3 from "@components/steps/Step3";
+import CommonNav from "@components/nav/CommonNav";
 
 const Signup = () => {
   const [step, setStep] = useState(1);

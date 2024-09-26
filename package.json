@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development --open --hot"
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production"
   },
   "author": "mani",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
     "formik": "^2.4.6",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.6.0",
     "postcss-loader": "^8.1.1",
     "react": "^18.3.1",
