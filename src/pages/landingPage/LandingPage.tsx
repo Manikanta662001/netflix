@@ -2,21 +2,49 @@ import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Navbar from "@components/nav/Navbar";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import CloseIcon from "@mui/icons-material/Close";
 import LandingCards from "@components/cards/LandingCards";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Formik, Form } from "formik";
-import { EmailInterface } from "./types";
+import {
+  ClickedQuestionInterface,
+  EmailInterface,
+  QuestionsInterface,
+} from "./types";
 
-const questions: string[] = [
-  "What is Netflix?",
-  "How much does Netflix cost?",
-  "Where can I watch?",
-  "How do I cancel?",
-  "What can I watch on Netflix?",
-  "Is Netflix good for kids",
+const questions: QuestionsInterface[] = [
+  {
+    headerName: "What is Netflix?",
+    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio laborum totam, vitae officia quibusdam quidem commodi perferendis, reiciendis provident accusamus, iste veniam aliquam tempore laboriosam repellat fugit illo possimus dolores.",
+  },
+  {
+    headerName: "How much does Netflix cost?",
+    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio laborum totam, vitae officia quibusdam quidem commodi perferendis, reiciendis provident accusamus, iste veniam aliquam tempore laboriosam repellat fugit illo possimus dolores.",
+  },
+  {
+    headerName: "Where can I watch?",
+    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio laborum totam, vitae officia quibusdam quidem commodi perferendis, reiciendis provident accusamus, iste veniam aliquam tempore laboriosam repellat fugit illo possimus dolores.",
+  },
+  {
+    headerName: "How do I cancel?",
+    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio laborum totam, vitae officia quibusdam quidem commodi perferendis, reiciendis provident accusamus, iste veniam aliquam tempore laboriosam repellat fugit illo possimus dolores.",
+  },
+  {
+    headerName: "What can I watch on Netflix?",
+    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio laborum totam, vitae officia quibusdam quidem commodi perferendis, reiciendis provident accusamus, iste veniam aliquam tempore laboriosam repellat fugit illo possimus dolores.",
+  },
+  {
+    headerName: "Is Netflix good for kids",
+    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio laborum totam, vitae officia quibusdam quidem commodi perferendis, reiciendis provident accusamus, iste veniam aliquam tempore laboriosam repellat fugit illo possimus dolores.",
+  },
 ];
 const LandingPage: React.FC<{}> = (): JSX.Element => {
   const initialValues: EmailInterface = { email: "" };
+  const [clickedQuestion, setClickedQuestion] =
+    useState<ClickedQuestionInterface>({
+      index: null,
+      answer: "",
+    });
   const navigate = useNavigate();
   const handleValidate = (values: EmailInterface) => {
     const errors = {} as EmailInterface;
@@ -26,6 +54,13 @@ const LandingPage: React.FC<{}> = (): JSX.Element => {
       errors.email = "Invalid email address";
     console.log(errors);
     return errors;
+  };
+  const handleQuestionClick = (ind: number) => {
+    if (ind !== clickedQuestion.index) {
+      setClickedQuestion({ index: ind, answer: questions[ind].text });
+    } else {
+      setClickedQuestion({ index: null, answer: "" });
+    }
   };
   return (
     <div>
@@ -113,14 +148,39 @@ const LandingPage: React.FC<{}> = (): JSX.Element => {
       <div className="flex flex-wrap items-center justify-center gap-[10px]">
         {questions.map((question, index) => {
           return (
-            <>
-              <div className="flex w-[82%] bg-dark-grey text-white p-[20px] justify-between items-center">
-                <h3>{question}</h3>
-                <AddIcon />
+            <div className="flex w-[82%] flex-wrap">
+              <div
+                className="flex w-[100%] bg-dark-grey border-b-2 text-white p-[20px] justify-between items-center hover:cursor-pointer hover:bg-blue-800"
+                onClick={() => handleQuestionClick(index)}
+              >
+                <h3>{question.headerName}</h3>
+                {clickedQuestion?.index === index ? <CloseIcon /> : <AddIcon />}
               </div>
-            </>
+              {clickedQuestion?.index === index && (
+                <div className="w-[100%] bg-light-grey text-white py-[5px]">
+                  <p className="w-[95%] text-justify m-auto">
+                    {clickedQuestion.answer}
+                  </p>
+                </div>
+              )}
+            </div>
           );
         })}
+      </div>
+      <div className="bg-light-grey w-[82%] m-auto">
+        <div className="text-slate-100/80 ml-[10%] mt-6">
+          Questions? Call 000-800-919-1694
+        </div>
+        <ul className="flex flex-wrap text-slate-100/80 underline ml-[10%]">
+          <li className="w-[50%] sm:w-[30%] mb-[0.7rem]">FAQ</li>
+          <li className="w-[50%] sm:w-[30%] mb-[0.7rem]">Help Center</li>
+          <li className="w-[50%] sm:w-[30%] mb-[0.7rem]">Terms of Use</li>
+          <li className="w-[50%] sm:w-[30%] mb-[0.7rem]">Privacy</li>
+          <li className="w-[50%] sm:w-[30%] mb-[0.7rem]">Cookie Preferences</li>
+          <li className="w-[50%] sm:w-[30%] mb-[0.7rem]">
+            Corporate Information
+          </li>
+        </ul>
       </div>
     </div>
   );
